@@ -1,4 +1,4 @@
-struct Trie2025 {
+struct trie_basic {
   const static int ALPHA = 94;
   int f(int x) { // function that converts character to id
     return x - 33;
