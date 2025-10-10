@@ -7,7 +7,7 @@ struct super_string {
     int k = 0, a, b;
     vector<int> x(s.begin(), s.end());
     vector<int> y(n);
-    int lim = 128;
+    int lim = 256;
     vector<int> ws(max(n, lim));
     SA = LCP = y;
     iota(SA.begin(), SA.end(), 0);
