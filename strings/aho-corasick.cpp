@@ -5,8 +5,10 @@ struct AhoCorasick {
     int fail = 0;
     int terminal = 0; // terminal link: following fail links until reaching a terminal state
     int len = 0; // length of string that matches (exactly) this state
-    int nmatches = 0; // number of input strings that match (exactly) this state, terminal state if nmatches > 0
+    bool output = false; // terminal state or not?
     vector<int> nxt = vector<int>(K, -1); // DFA transitions
+    vector<int> failchild; // fail 樹 children, do any aggregates here
+    int nmatches = 0;
   } emptynode;
   vector<node> v = {emptynode};
   void insert(string s) {
@@ -22,6 +24,7 @@ struct AhoCorasick {
       }
       v[idx].len = ++cnter;
     }
+    v[idx].output = true;
     v[idx].nmatches++;
   }
   void build() {
@@ -40,8 +43,10 @@ struct AhoCorasick {
         }
         else v[f].nxt[i] = v[v[f].fail].nxt[i];
       }
-      if (v[v[f].fail].nmatches > 0) v[f].terminal = v[f].fail;
+      if (v[v[f].fail].output) v[f].terminal = v[f].fail;
       else v[f].terminal = v[v[f].fail].terminal;
+      v[v[f].fail].failchild.push_back(f);
+      v[f].nmatches += v[v[f].fail].nmatches;
     }
   }
   int size() {
