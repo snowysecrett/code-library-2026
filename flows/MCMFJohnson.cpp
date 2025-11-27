@@ -1,4 +1,13 @@
-// Assumes #define int long long.
+/**
+ * Author: snowysecret
+ * Date: Unknown
+ * Source: snowysecret
+ * Description: Min-cost max-flow, with Johnson's Algorithm support.
+ *  Works even if costs are negative, but note that negative cost cycles are not supported.
+ *  Same API as MinCostMaxFlow.h, assumes #define int long long.
+ * Status: Faster than MinCostMaxFlow.h on HKOJ M1851 Driver.
+ * Time: $O(F E \log(V))$ where F is max flow. 
+ */
 struct MCMFJohnson {
   struct edge {
     int to, cost, flow, revid; // reverse edge id in adjacency list
