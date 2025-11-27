@@ -1,4 +1,13 @@
-// init(a+1, a+n+1, 0, 1E9)
+/**
+ * Author: Unknown
+ * Date: Unknown
+ * Source: Unknown
+ * Description: Usage is int a[n+1]; tr.init(a+1, a+n+1, x, y);
+ * where x, y are lower and upper bounds of a[i] respectively.
+ * Do not use 0-based arrays or vectors.
+ * Status: Unknown
+ * Time: $O(n \log n)$.
+ */
 struct WaveletTree {
   int lo, hi;
   wavelet_tree *l, *r;
