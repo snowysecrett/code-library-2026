@@ -1,4 +1,13 @@
-struct hash_string {
+/**
+ * Author: snowysecret
+ * Date: Unknown
+ * Source: snowysecret
+ * Description: String (multi-)hashing. init(s) if you want to use single hashing;
+ * init(s, k) if you want to use k-hashing, for k at most 5.
+ * Status: Tested on some Codeforces problems before.
+ * Time: $O(kn)$.
+ */
+struct HashString {
   // all indices are ZERO-BASED
   const int fac[5] = {2017, 211, 269, 397, 691};
   const int MOD[5] = {1734232211, 1000000009, 874803863, 909739993, 
