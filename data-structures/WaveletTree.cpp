@@ -10,7 +10,7 @@
  */
 struct WaveletTree {
   int lo, hi;
-  wavelet_tree *l, *r;
+  WaveletTree *l, *r;
   int *b, *c, bsz, csz; // c holds the prefix sum of elements
  
   WaveletTree() {
