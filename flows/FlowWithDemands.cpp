@@ -1,7 +1,7 @@
 /**
  * Author: snowysecret, adapted from KACTL
  * addEdge(u, v, l, r) adds a directed edge from node u to node v with demand l and
- * capacity r. It is also possible to add edges normally using addEdge(u, v, c).
+ * capacity r. It is also possible to add edges normally using addEdge(u, v, c). 
  * Supersource node is node n-2, supersource node is node n-1 as seen inside the template,
  * and nodes n and n+1 respectively seen outside the template. calcMax() returns either the 
  * maximum flow satisfying all constraints from s to t, or -1 if a valid flow cannot be found.
