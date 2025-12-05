@@ -8,13 +8,14 @@
  * Time: $O(kn)$.
  */
 struct HashString {
-  // all indices are ZERO-BASED
   const int fac[5] = {2017, 211, 269, 397, 691};
   const int MOD[5] = {1734232211, 1000000009, 874803863, 909739993, 
     1388999387};
+  const int weights[5] = {1, 67, 1000003, 1073, 73412269};
   vector<int> pau[5], ps[5];
   int n, k_;
-  void init(string s, int k = 1) {
+  HashString() {}
+  HashString(string s, int k = 1) {
     k_ = k;
     n = s.size();
     for (int it=0; it<k; it++) {
@@ -32,7 +33,7 @@ struct HashString {
     int ans = 0;
     for (int i=0; i<k_; i++) {
       int val = (ps[i][r] - (l == 0 ? 0 : (ps[i][l-1] * pau[i][r-l+1]) % MOD[i]) + MOD[i]) % MOD[i];
-      ans ^= (val * (i + 1));
+      ans ^= (val * weights[i]);
     }
     return ans;
   }
