@@ -14,8 +14,8 @@ ll euclid(ll a, ll b, ll &x, ll &y) {
 pii eqn(ll a, ll b, ll n) {
   a %= n;
   b %= n;
-  if (a < n) a += n;
-  if (b < n) b += n;
+  if (a < 0) a += n;
+  if (b < 0) b += n;
   ll x, y;
   ll g = euclid(a, n, x, y);
   if (b % g) return {-1, -1};
