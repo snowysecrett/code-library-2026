@@ -12,6 +12,10 @@ ll euclid(ll a, ll b, ll &x, ll &y) {
   return y -= a/b * x, d;
 }
 pii eqn(ll a, ll b, ll n) {
+  a %= n;
+  b %= n;
+  if (a < n) a += n;
+  if (b < n) b += n;
   ll x, y;
   ll g = euclid(a, n, x, y);
   if (b % g) return {-1, -1};
