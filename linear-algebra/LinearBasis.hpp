@@ -32,7 +32,7 @@ struct LinearBasis {
   }
   void merge(LinearBasis other) {
     assert(B == other.B);
-    for (int i=B-1; i>=0; i--) {
+    for (int i=0; i<B; i++) {
       if (other.has[i]) insert(other.basis[i]);
     }
   }
