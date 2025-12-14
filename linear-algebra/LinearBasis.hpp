@@ -4,18 +4,18 @@ struct LinearBasis {
   LinearBasis() {}
   LinearBasis(int B_): B(B_), has(vi(B_)), basis(vi(B_)) {}
   void insert(int x) {
-    for (int i=B-1; i>=0; i--) {
-      if (!(x & (1 << i))) continue;
+    while (x) {
+      int i = 31 - __builtin_clz(x);
       if (has[i]) x ^= basis[i];
       else {
-        has[i] = 1, basis[i] = x, sz <<= 1;
+        has[i] = 1, basis[i] = x;
         return;
       }
     }
   }
   bool count(int x) {
-    for (int i=B-1; i>=0; i--) {
-      if (!(x & (1 << i))) continue;
+    while (x) {
+      int i = 31 - __builtin_clz(x);
       if (has[i]) x ^= basis[i];
       else return 0;
     }
