@@ -1,5 +1,5 @@
 struct LinearBasis {
-  int B = 0, sz = 1;
+  int B = 0;
   vi has, basis;
   LinearBasis() {}
   LinearBasis(int B_): B(B_), has(vi(B_)), basis(vi(B_)) {}
