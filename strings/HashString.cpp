@@ -6,7 +6,7 @@
  * Status: Tested on some Codeforces problems before.
  * Time: $O(kn)$.
  */
-template<int k = 1>
+template<int k>
 struct HashString {
   const int fac[5] = {2017, 211, 269, 397, 691};
   const int MOD[5] = {1734232211, 1000000009, 874803863, 909739993, 
