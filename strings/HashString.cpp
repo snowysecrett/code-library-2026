@@ -2,11 +2,11 @@
  * Author: snowysecret
  * Date: Unknown
  * Source: snowysecret
- * Description: String (multi-)hashing. init(s) if you want to use single hashing;
- * init(s, k) if you want to use k-hashing, for k at most 5.
+ * Description: String (multi-)hashing (parameterized class for k-hashing).
  * Status: Tested on some Codeforces problems before.
  * Time: $O(kn)$.
  */
+template<int k = 1>
 struct HashString {
   const int fac[5] = {2017, 211, 269, 397, 691};
   const int MOD[5] = {1734232211, 1000000009, 874803863, 909739993, 
@@ -15,7 +15,7 @@ struct HashString {
   vector<int> pau[5], ps[5];
   int n, k_;
   HashString() {}
-  HashString(string s, int k = 1) {
+  HashString(string s) {
     k_ = k;
     n = s.size();
     for (int it=0; it<k; it++) {
