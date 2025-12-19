@@ -10,9 +10,10 @@ struct Matrix {
     Matrix product(n);
     for (int i=0; i<n; i++) {
       for (int j=0; j<n; j++) {
-        product.a[i][j] = 1e18;
+        product.a[i][j] = 0;
         for (int k=0; k<n; k++) {
-          product.a[i][j] = min(product.a[i][j], a[i][k] + other.a[k][j]);
+          product.a[i][j] += a[i][k] * other.a[k][j];
+          product.a[i][j] %= MOD;
         }
       }
     }
