@@ -6,13 +6,15 @@ struct MinOR {
     x=(1<<b)-1-x;
     queue<int> q;
     q.push(x);
+    vis[x] = 1;
     while (q.size()) {
       int f = q.front(); q.pop();
-      if (vis[f]) continue;
-      vis[f] = 1;
       for (int i=0; i<b; i++) {
         if (f & (1<<i)) {
-          if (!vis[f ^ (1<<i)]) q.push(f ^ (1<<i));
+          if (!vis[f ^ (1<<i)]) {
+            vis[f ^ (1<<i)] = 1;
+            q.push(f ^ (1<<i));
+          }
         }
       }
     }
@@ -33,13 +35,15 @@ struct MaxOR {
   void upd(int x) {
     queue<int> q;
     q.push(x);
+    vis[x] = 1;
     while (q.size()) {
       int f = q.front(); q.pop();
-      if (vis[f]) continue;
-      vis[f] = 1;
       for (int i=0; i<b; i++) {
         if (f & (1<<i)) {
-          if (!vis[f ^ (1<<i)]) q.push(f ^ (1<<i));
+          if (!vis[f ^ (1<<i)]) {
+            vis[f ^ (1<<i)] = 1;
+            q.push(f ^ (1<<i));
+          }
         }
       }
     }
