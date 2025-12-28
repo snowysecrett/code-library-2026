@@ -42,9 +42,9 @@ struct WaveletTree {
     }
     if(hi == lo) return;
     auto pivot = stable_partition(from, to, f);
-    l = new wavelet_tree();
+    l = new WaveletTree();
     l->init(from, pivot, lo, mid);
-    r = new wavelet_tree();
+    r = new WaveletTree();
     r->init(pivot, to, mid + 1, hi);
   }
   //kth smallest element in [l, r]
