@@ -5,6 +5,9 @@
  * Description: Usage is int a[n+1]; tr.init(a+1, a+n+1, x, y);
  * where x, y are lower and upper bounds of a[i] respectively.
  * Do not use 0-based arrays or vectors.
+ * DO DUPLICATE the array before you init it with the wavelet tree.
+ * This is because the wavelet tree has a side effect of sorting the
+ * provided array.
  * Status: Unknown
  * Time: $O(n \log n)$.
  */
