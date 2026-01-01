@@ -8,26 +8,24 @@ struct MasterDSU {
     for (int i=0; i<n; i++) dsu[i] = i, color[i] = 0, bipartite[i] = 1;
   }
   pii set_of(int u) {
-    if (u != dsu[u]) {
-      int parity = color[u];
-      pii res = set_of(dsu[u]);
-      dsu[u] = res.fi, color[u] = res.se;
-      color[u] ^= parity;
-    }
-    return {dsu[u], color[u]};
+    if (u == dsu[u]) return {u, color[u]};
+    int save = color[u];
+    pii res = set_of(dsu[u]);
+    res.se ^= save;
+    return res;
   }
   void Union(int u, int v) {
     pii su = set_of(u), sv = set_of(v);
     u = su.fi, v = sv.fi;
+    history.push({v, dsu[v], rank[v], color[v], bipartite[v], 
+      u, dsu[u], rank[u], color[u], bipartite[u]
+    });
     int x = su.se, y = sv.se;
     if (u == v) {
       if (x == y) bipartite[u] = 0;
       return;
     }
     if (rank[u] < rank[v]) swap(u, v);
-    history.push({v, dsu[v], rank[v], color[v], bipartite[v], 
-                  u, dsu[u], rank[u], color[u], bipartite[u]
-    });
     dsu[v] = u;
     color[v] = x ^ y ^ 1;
     bipartite[u] &= bipartite[v];
