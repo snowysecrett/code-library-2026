@@ -1,3 +1,16 @@
+/*
+ * Author: snowysecret
+ * Description: a data structure that maintains a big number N
+ * in base b and supports the following:
+ * 1. Given (possibly negative) integers |x|, |y| ≤ n,
+ * add x * b^y to N.
+ * 2. Given k and assuming N >= 0, print the k-th digit of N.
+ * 3. Check if N is positive, negative or equals to 0.
+ * O(log n) amortized time for each operation. Idea: maintain
+ * digits in the interval (-b, b) avoiding another chain of carries
+ * when undoing an operation with a chain of carries.
+ * Status: tested on CF1994G (but is not optimal approach for such problem)
+ */
 struct TrygubNumber {
   int base;
   map<int, int> digs;
