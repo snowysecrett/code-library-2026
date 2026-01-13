@@ -12,6 +12,7 @@ struct Matrix {
       for (int j=0; j<n; j++) {
         product.a[i][j] = 0;
         for (int k=0; k<n; k++) {
+          if (!a[i][k] || !other.a[k][j]) continue;
           product.a[i][j] += a[i][k] * other.a[k][j];
           product.a[i][j] %= MOD;
         }
