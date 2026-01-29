@@ -1,7 +1,7 @@
 /*
  * Author: cp-algorithms, ChatGPT and Copilot
  * Description: polynomial class that supports
- * convolution, derivative, integral,
+ * convolution, derivative, integral, 
  * inv, ln, exp, pow and sqrt.
  * Status: all tested on LibChecker.
  */
