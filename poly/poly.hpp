@@ -1,6 +1,13 @@
+/*
+ * Author: cp-algorithms, ChatGPT and Copilot
+ * Description: polynomial class that supports
+ * convolution, derivative, integral,
+ * inv, ln, exp, pow and sqrt.
+ * Status: all tested on LibChecker.
+ */
 typedef vector<ll> vl;
 struct poly : vl {
-  static constexpr ll mod = (119 << 23) + 1, root = 62; // = 998244353
+  const ll mod = (119 << 23) + 1, root = 62; // = 998244353
   // For p < 2^30 there is also e.g. 5 << 25, 7 << 26, 479 << 21
   // and 483 << 21 (same root). The last two are > 10^9.
   poly(int n) : vl(n) {}
@@ -80,15 +87,20 @@ struct poly : vl {
     rep(i,0,sz(res)) res[i] = ((*this)[i] * b) % mod;
     return res;
   }
-  poly& operator=(const poly& b) {
-    if (this == &b) return *this;
-    vl::operator=(b); 
+  poly operator=(const poly &b) {
+    this->clear();
+    for (auto x : b) this->pb(x);
     return *this;
   }
-  poly& operator+=(const poly& b) { *this = *this + b; return *this; }
-  poly& operator-=(const poly& b) { *this = *this - b; return *this; }
-  poly& operator*=(const poly& b) { *this = *this * b; return *this; }
-  poly& operator*=(const ll& b) { *this = *this * b; return *this; }
+  poly operator+=(const poly &b) {
+    return *this = *this + b;
+  }
+  poly operator-=(const poly &b) {
+    return *this = *this - b;
+  }
+  poly operator*=(const poly &b) {
+    return *this = *this * b;
+  } 
   poly modxk(int k) const {
     k = min(k, (int)this->size());
     return poly(vl(this->begin(), this->begin() + k));
@@ -132,21 +144,101 @@ struct poly : vl {
   // calculate this^k mod x^n
   poly pow(int k, int n) const {
     if (this->empty()) return *this;
+    if (k == 0) {
+      poly one(n, 0);
+      one[0] = 1;
+      return one;
+    }
     int lead = 0;
     while (lead < (int)this->size() && (*this)[lead] == 0) lead++;
-    if (lead == (int)this->size() || lead * k >= n)
+    if (lead == (int)this->size() || (__int128) lead * k >= n)
       return poly(n, 0);
     ll inv = modinv((*this)[lead]);
     poly f((int)this->size() - lead, 0);
-    for (int i = lead; i < (int)this->size(); i++)
-      f[i - lead] = (*this)[i] * inv % mod;
-    poly res = (f.ln(n - lead * k) * k).exp(n - lead * k);
-    poly ans(n, 0);
-    ll coef = modpow((*this)[lead], k);
+    for (int i = 0; i < (int)f.size(); i++)
+      f[i] = (*this)[i + lead] * inv % mod;
+    poly res = (f.ln(n - lead * k) * (k % mod)).exp(n - lead * k);
+    res = res * modpow((*this)[lead], k);
+    poly ans(n, 0); 
     for (int i = 0; i < (int)res.size(); i++)
-      ans[i + lead * k] = res[i] * coef % mod;
+      ans[i + lead * k] = res[i];
     return ans;
-  } 
+  }
+  poly sqrt(int n) const { // calculate f(x) where f(x)^2 = (*this) mod x^n
+    if (n == 0) return poly(0);
+    poly a = *this;
+    a.resize(n);
+    int k = 0;
+    while (k < n && a[k] == 0) k++;
+    if (k == n) return poly(n, 0);
+    if (k & 1) { // NO SOLUTION
+      assert(false && "poly::sqrt: no square root exists (odd valuation)");
+    }
+    if (k) {
+      poly b(n - k);
+      for (int i = k; i < n; i++) b[i - k] = a[i];
+      poly h = b.sqrt(n - (k / 2));
+      poly res(n, 0);
+      for (int i = 0; i < (int)h.size() && i + k / 2 < n; i++) res[i + k / 2] = h[i];
+      return res;
+    }
+    auto mod_sqrt = [&](ll A) -> ll {
+      A %= mod;
+      if (A < 0) A += mod;
+      if (A == 0) return 0;
+      if (modpow(A, (mod - 1) / 2) != 1) { // NO SOLUTION
+        assert(false && "poly::sqrt: constant term is not a quadratic residue");
+      }
+      ll q = mod - 1;
+      int s = 0;
+      while ((q & 1) == 0) q >>= 1, s++;
+      ll z = 2;
+      while (modpow(z, (mod - 1) / 2) != mod - 1) z++;
+      ll c = modpow(z, q);
+      ll x = modpow(A, (q + 1) / 2);
+      ll t = modpow(A, q);
+      int m = s;
+      while (t != 1) {
+        int i = 1;
+        ll tt = (t * t) % mod;
+        while (i < m && tt != 1) {
+          tt = (tt * tt) % mod;
+          i++;
+        }
+        ll b = c;
+        for (int e = 0; e < m - i - 1; e++) b = (b * b) % mod;
+        x = (x * b) % mod;
+        ll b2 = (b * b) % mod;
+        t = (t * b2) % mod;
+        c = b2;
+        m = i;
+      }
+      return x;
+    };
+    ll r0 = mod_sqrt(a[0]);
+    poly g(1);
+    g[0] = r0;
+    const ll inv2 = (mod + 1) / 2;
+    for (int m = 1; m < n; m <<= 1) {
+      int m2 = min(n, m << 1);
+      poly a_cut = a;
+      a_cut.resize(m2);
+      poly invg = g.inv(m2);
+      poly q = a_cut * invg;
+      q.resize(m2);
+      poly g_ext = g;
+      g_ext.resize(m2);
+      for (int i = 0; i < m2; i++) {
+        q[i] = ( (g_ext[i] + q[i]) % mod ) * inv2 % mod;
+      }
+      g = q;
+    }
+    g.resize(n);
+    for (int i = 0; i < n; i++) {
+      g[i] = (mod - g[i]) % mod;
+    }
+    return g;
+  }  
   friend ostream& operator<<(ostream& os, const poly& p) {
     os << "(";
     for (int i=0; i<sz(p); i++) {
