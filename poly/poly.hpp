@@ -1,5 +1,5 @@
 /*
- * Author: cp-algorithms, ChatGPT and Copilot
+ * Author: KACTL, cp-algorithms, ChatGPT and Copilot
  * Description: polynomial class that supports
  * convolution, derivative, integral, 
  * inv, ln, exp, pow and sqrt.
