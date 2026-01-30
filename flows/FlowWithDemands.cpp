@@ -57,7 +57,7 @@ struct FlowWithDemands {
 	}
 	ll calc_(int s, int t) {
 		ll flow = 0; q[0] = s;
-		rep(L,0,31) do { // 'int L=30' maybe faster for random data
+		rep(L,0,31) do { // 'int L=30' maybe faster for random data 
 			lvl = ptr = vi(sz(q));
 			int qi = 0, qe = lvl[s] = 1;
 			while (qi < qe && !lvl[t]) {
