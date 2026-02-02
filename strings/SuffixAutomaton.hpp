@@ -1,3 +1,11 @@
+/**
+ * Author: CP-algorithms
+ * Date: Unknown
+ * Source: CP-algorithms
+ * Description: Suffix Automaton data structure.
+ * Status: Tested on Library Checker.
+ * Time: $O(n log k)$, where k = size of alphabet.
+ */
 struct SuffixAutomaton {
   struct state {
     int len, link;
