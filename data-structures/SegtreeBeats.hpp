@@ -1,6 +1,9 @@
 /*
  * Author: snowysecret
- * Description: segment tree beats
+ * Description: segment tree beats, supports
+ * range chmin, chmax and add operations, and sum 
+ * queries. Can be easily augmented to support min and
+ * max queries as well.
  * Status: tested on LibChecker.
  */
 struct SegtreeBeats {
@@ -60,15 +63,9 @@ struct SegtreeBeats {
     if (type == CHMIN && st[idx].mx1 <= v) return;
     if (type == CHMAX && st[idx].mn1 >= v) return;
     if (l <= constl && constr <= r) {
-      if (type == CHMIN && st[idx].mx2 < v) {
-        apply_chmin(st[idx], v); return;
-      }
-      if (type == CHMAX && st[idx].mn2 > v) {
-        apply_chmax(st[idx], v); return;
-      }
-      if (type == ADD) {
-        apply_add(st[idx], v); return;
-      }
+      if (type == CHMIN && st[idx].mx2 < v) return apply_chmin(st[idx], v);
+      if (type == CHMAX && st[idx].mn2 > v) return apply_chmax(st[idx], v);
+      if (type == ADD) return apply_add(st[idx], v);
     }
     push_down(idx);
     int mid = (constl + constr) >> 1;
@@ -86,9 +83,7 @@ struct SegtreeBeats {
     int mid = (constl + constr) >> 1;
     if (mid < l || r < constl) return qu(l, r, mid + 1, constr, (idx << 1) + 2);
     else if (constr < l || r < mid + 1) return qu(l, r, constl, mid, (idx << 1) + 1);
-    else {
-      return qu(l, r, constl, mid, (idx << 1) + 1) + qu(l, r, mid + 1, constr, (idx << 1) + 2);
-    }
+    else return qu(l, r, constl, mid, (idx << 1) + 1) + qu(l, r, mid + 1, constr, (idx << 1) + 2);
   }
   public:
   void init(int idx, int l, int r) {
