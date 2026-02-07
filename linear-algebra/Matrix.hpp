@@ -9,10 +9,10 @@ struct Matrix {
   Matrix operator*(Matrix other) {
     Matrix product(n);
     for (int i=0; i<n; i++) {
-      for (int j=0; j<n; j++) {
-        product.a[i][j] = 0;
-        for (int k=0; k<n; k++) {
-          if (!a[i][k] || !other.a[k][j]) continue;
+      for (int k=0; k<n; k++) {
+        if (!a[i][k]) continue;
+        for (int j=0; j<n; j++) {
+          if (!other.a[k][j]) continue;
           product.a[i][j] += a[i][k] * other.a[k][j];
           product.a[i][j] %= MOD;
         }
