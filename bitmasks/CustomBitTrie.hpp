@@ -2,15 +2,17 @@ struct BitTrie {
   int b;
   struct Node {
     int nxt[2], info;
-    Node() {
-      nxt[0] = nxt[1] = -1;
-      info = 1e9;
-    }
+    Node() : nxt{-1, -1}, info{1000'000'000} {}
   };
   vector<Node> st;
   BitTrie(int b) {
     this->b = b;
-    st.resize(1);
+    st.pb(Node());
+  }
+  BitTrie(int b, int sz) {
+    this->b = b;
+    st.reserve(b * sz + 2);
+    st.pb(Node());
   }
   void add(int x, int id) {
     int cur = 0;
