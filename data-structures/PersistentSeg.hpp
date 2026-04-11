@@ -1,7 +1,10 @@
-/* Persistent segment tree that supports the following operations:
+/**
+ * Author: snowysecret
+ * Persistent segment tree that supports the following operations:
  * Suppose we are maintaining an array a[1], a[2], ..., a[n])
  * Ver[newest] = Ver[some_old_version] + (a[x] := y) operation on the old version
  * Sum(ver, l, r) : query the sum of l to r in version ver
+ * Testing: done on ABC453G.
  */
 struct PersistentSeg {
   struct node {
