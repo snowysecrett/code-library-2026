@@ -1,8 +1,8 @@
-struct DSURollback {
+struct DSU {
   vector<int> dsu, rank;
   int n;
-  DSURollback() {}
-  DSURollback(int n) : n(n), dsu(vi(n)), rank(vi(n)) {
+  DSU() {}
+  DSU(int n) : n(n), dsu(vi(n)), rank(vi(n)) {
     for (int i=0; i<n; i++) dsu[i] = i;
   }
   int set_of(int u) {
