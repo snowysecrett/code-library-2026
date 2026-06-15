@@ -17,16 +17,12 @@ struct XOR3Basis {
                 for (int j=0; j<K; j++) {
                     basis[v[i]][i][j] = v[j];
                 }
-                // cout << v[i] << " " << i << ": ";
-                // print(basis[v[i]][i]);
                 if (!have[3 - v[i]][i]) {
                     have[3 - v[i]][i] = 1;
                     basis[3 - v[i]][i].resize(K);
                     for (int j=0; j<K; j++) {
                         basis[3 - v[i]][i][j] = (v[j] == 0 ? 0 : 3 - v[j]);
                     }
-                    // cout << 3 - v[i] << " " << i << ": ";
-                    // print(basis[3 - v[i]][i]);
                 }
                 return;
             }
@@ -36,7 +32,6 @@ struct XOR3Basis {
     bool query(vector<int> v) {
         for (int i=K-1; i>=0; i--) {
             if (v[i] == 0) continue;
-            // basis[v[i]][i] must exist
             if (basis[v[i]][i].empty()) return false;
             v = sub(v, basis[v[i]][i]);
         }
