@@ -1,8 +1,8 @@
 struct DSU {
-  vector<int> dsu, sz;
+  vector<int> dsu, sizes;
   int n;
   DSU() {}
-  DSU(int n) : n(n), dsu(n), sz(n, 1) {
+  DSU(int n) : n(n), dsu(n), sizes(n, 1) {
     for (int i = 0; i < n; i++) dsu[i] = i;
   }
   int set_of(int u) {
@@ -13,9 +13,9 @@ struct DSU {
     u = set_of(u);
     v = set_of(v);
     if (u == v) return false;
-    if (sz[u] < sz[v]) swap(u, v);
+    if (sizes[u] < sizes[v]) swap(u, v);
     dsu[v] = u;
-    sz[u] += sz[v];
+    sizes[u] += sizes[v];
     return true;
   }
 };
