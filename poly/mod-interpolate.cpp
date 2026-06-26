@@ -1,4 +1,5 @@
 // Reference: https://contest.ucup.ac/submission/2195950
+// Lagrange interpolation modulo (prime) MOD, O(N^2) time complexity
 
 vi interpolate(vi x, vi y, int n) {
 	vi res(n), temp(n);
