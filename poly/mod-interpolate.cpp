@@ -1,3 +1,5 @@
+// Reference: https://contest.ucup.ac/submission/2195950
+
 vi interpolate(vi x, vi y, int n) {
 	vi res(n), temp(n);
 	rep(k,0,n-1) rep(i,k+1,n)
