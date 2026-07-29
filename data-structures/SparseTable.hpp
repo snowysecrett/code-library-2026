@@ -1,6 +1,7 @@
 struct SparseTable {
   int n;
   vector<pii> st[20];
+  SparseTable() {}
   SparseTable(vi v) {
     n = sz(v);
     for (int i=0; i<n; i++) st[0][i] = {v[i], i};
