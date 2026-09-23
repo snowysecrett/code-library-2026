@@ -75,12 +75,15 @@ struct SegTreeMinimums {
   void range_add(int l, int r, int v) {
     u(l, r, 0, stok, 0, v);
   }
-  int query_mincnt(int l, int r) {
+  int query_min_count(int l, int r) {
     pair<int, int> hi = qu(l, r, 0, stok, 0);
     return hi.second;
   }
   int query_min(int l, int r) {
     pair<int, int> hi = qu(l, r, 0, stok, 0);
     return hi.first;
+  }
+  pair<int, int> query_min_with_count(int l, int r) {
+    return qu(l, r, 0, stok, 0);
   }
 };
