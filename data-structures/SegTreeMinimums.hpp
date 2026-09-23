@@ -68,8 +68,7 @@ struct SegTreeMinimums {
   }
   public:
   int stok;
-  void resize(int k) {
-    stok = k + 5;
+  SegTreeMinimums(int k) : stok(k + 5) {
     st.resize(4 * stok);
     build(0, stok, 0);
   }
